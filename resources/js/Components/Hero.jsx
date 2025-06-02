@@ -1,6 +1,14 @@
 import React from 'react';
+import { Link } from '@inertiajs/react';
 
 const Hero = () => {
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative py-32 px-4 overflow-hidden">
       {/* Premium 3D Background Elements */}
@@ -123,7 +131,7 @@ const Hero = () => {
       <div className="container mx-auto text-center relative z-10">
         <div className="animate-fade-in">
           {/* Premium badge with 3D effect */}
-          <div className="inline-flex items-center px-8 py-3 bg-black/60 border-2 border-premium-gold-500/30 rounded-full mb-8 backdrop-blur-xl shadow-2xl shadow-premium-gold-500/20">
+          <div className="hidden md:inline-flex items-center px-8 py-3 bg-black/60 border-2 border-premium-gold-500/30 rounded-full mb-8 backdrop-blur-xl shadow-2xl shadow-premium-gold-500/20">
             <span className="text-premium-gold-400 text-sm font-medium tracking-wider uppercase">
               Premium Seafood Collection
             </span>
@@ -145,13 +153,19 @@ const Hero = () => {
 
           {/* Premium CTA buttons with enhanced 3D effects */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button className="group relative px-10 py-5 bg-gradient-to-r from-premium-gold-400 via-premium-gold-500 to-premium-gold-600 text-black font-semibold rounded-2xl overflow-hidden transition-all duration-500 transform hover:scale-105 shadow-2xl shadow-premium-gold-500/30 hover:shadow-premium-gold-500/50">
+            <button
+              onClick={() => scrollToSection('products')}
+              className="group relative px-10 py-5 bg-gradient-to-r from-premium-gold-400 via-premium-gold-500 to-premium-gold-600 text-black font-semibold rounded-2xl overflow-hidden transition-all duration-500 transform hover:scale-105 shadow-2xl shadow-premium-gold-500/30 hover:shadow-premium-gold-500/50"
+            >
               <span className="relative z-10">Explore Collection</span>
               <div className="absolute inset-0 bg-gradient-to-r from-premium-gold-500 via-premium-gold-600 to-premium-gold-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </button>
 
-            <button className="px-10 py-5 border-2 border-premium-gold-500/50 text-premium-gold-400 font-semibold rounded-2xl hover:border-premium-gold-400 hover:bg-premium-gold-500/10 hover:text-premium-gold-300 transition-all duration-500 backdrop-blur-xl bg-black/20 shadow-xl hover:shadow-2xl hover:shadow-premium-gold-500/20">
+            <button
+              onClick={() => scrollToSection('about')}
+              className="px-10 py-5 border-2 border-premium-gold-500/50 text-premium-gold-400 font-semibold rounded-2xl hover:border-premium-gold-400 hover:bg-premium-gold-500/10 hover:text-premium-gold-300 transition-all duration-500 backdrop-blur-xl bg-black/20 shadow-xl hover:shadow-2xl hover:shadow-premium-gold-500/20"
+            >
               Learn Our Story
             </button>
           </div>

@@ -20,7 +20,7 @@ const Header = memo(() => {
   const totalItems = useMemo(() => getTotalItems(), [getTotalItems]);
 
   return (
-    <header className="bg-premium-onyx-800/95 backdrop-blur-md shadow-xl sticky top-0 z-50 border-b border-premium-gold-500/20 -mt-[1px]">
+    <header className="bg-premium-onyx-800/95 backdrop-blur-md shadow-xl z-50 border-b border-premium-gold-500/20 -mt-[1px]">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between relative">
           {/* Logo */}
