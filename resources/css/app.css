@@ -1,3 +1,152 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Premium Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Premium Typography */
+@layer base {
+    html {
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-bold tracking-tight;
+    }
+}
+
+/* Premium Components */
+@layer components {
+    .premium-card {
+        @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300;
+        animation: scaleIn 0.5s ease-out;
+    }
+
+    .premium-button {
+        @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+    }
+
+    .premium-input {
+        @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300;
+    }
+
+    .premium-nav-link {
+        @apply px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors duration-300 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all after:duration-300;
+    }
+
+    .hover-glow {
+        @apply transition-all duration-300;
+    }
+
+    .hover-glow:hover {
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    }
+
+    .premium-shadow {
+        @apply transition-all duration-300;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .premium-shadow-hover {
+        @apply transition-all duration-300;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .premium-shadow-hover:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/* Premium Animations Classes */
+.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+}
+
+/* Premium Hover Effects */
+.hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+/* Premium Gradients */
+.premium-gradient {
+    @apply bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600;
+}
+
+.premium-gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600;
+}
+
+/* Premium Transitions */
+.premium-transition {
+    @apply transition-all duration-300 ease-in-out;
+}
+
+/* Premium Scrollbar */
+@layer utilities {
+    .premium-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: theme('colors.blue.500') theme('colors.gray.200');
+    }
+
+    .premium-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .premium-scrollbar::-webkit-scrollbar-track {
+        background: theme('colors.gray.200');
+        border-radius: 4px;
+    }
+
+    .premium-scrollbar::-webkit-scrollbar-thumb {
+        background: theme('colors.blue.500');
+        border-radius: 4px;
+    }
+}

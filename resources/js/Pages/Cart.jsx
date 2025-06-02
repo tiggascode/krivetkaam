@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trash2, Plus, Minus, Phone } from 'lucide-react';
-import {useCart} from "@/contexts/CartContext.jsx";
+import { useCart } from "@/contexts/CartContext.jsx";
 import Header from "@/Components/Header.jsx";
 
 
@@ -68,8 +68,8 @@ const Cart = () => {
                                                             <Minus className="w-4 h-4" />
                                                         </button>
                                                         <span className="text-premium-pearl-50 font-medium min-w-[20px] text-center">
-                              {item.quantity}
-                            </span>
+                                                            {item.quantity}
+                                                        </span>
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                                             className="p-1 rounded-full bg-premium-gold-500/20 hover:bg-premium-gold-500/30 text-premium-gold-400 transition-colors"

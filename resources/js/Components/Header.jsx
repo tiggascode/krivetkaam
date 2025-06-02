@@ -1,19 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo, memo } from 'react';
 import { ShoppingCart, Menu, X, Search } from 'lucide-react';
-import {useCart} from "@/contexts/CartContext.jsx";
+import { useCart } from "@/contexts/CartContext.jsx";
+import debounce from 'lodash/debounce';
 
-const Header = () => {
+const Header = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { getTotalItems } = useCart();
 
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = useCallback((sectionId) => {
     const section = document.getElementById(sectionId);
     section?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
-  };
+  }, []);
+
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((query) => {
+        // Implement your search logic here
+        console.log('Searching for:', query);
+      }, 300),
+    []
+  );
+
+  const handleSearchChange = useCallback((e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    debouncedSearch(query);
+  }, [debouncedSearch]);
+
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+  }, []);
+
+  const totalItems = useMemo(() => getTotalItems(), [getTotalItems]);
 
   return (
-    <header className= "bg-premium-onyx-800/95 backdrop-blur-md shadow-xl sticky top-0 z-50 border-b border-premium-gold-500/20 -mt-[1px]">
+    <header className="bg-premium-onyx-800/95 backdrop-blur-md shadow-xl sticky top-0 z-50 border-b border-premium-gold-500/20 -mt-[1px]">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -53,6 +76,8 @@ const Header = () => {
             <div className="relative hidden md:block">
               <input
                 type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
                 placeholder="Search..."
                 className="bg-premium-onyx-800/50 border border-premium-gold-500/20 rounded-full px-4 py-2 text-premium-pearl-50 placeholder-premium-pearl-300/50 focus:outline-none focus:border-premium-gold-500/50 w-48"
               />
@@ -64,9 +89,9 @@ const Header = () => {
               className="relative p-2 bg-premium-gold-500 text-premium-onyx-900 rounded-full hover:bg-premium-gold-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               <ShoppingCart className="w-5 h-5" />
-              {getTotalItems() > 0 && (
+              {totalItems > 0 && (
                 <span className="absolute -top-1 -right-1 bg-premium-onyx-900 text-premium-gold-400 text-xs rounded-full w-5 h-5 flex items-center justify-center border border-premium-gold-500/20">
-                  {getTotalItems()}
+                  {totalItems}
                 </span>
               )}
             </a>
@@ -74,7 +99,7 @@ const Header = () => {
             {/* Mobile menu button */}
             <button
               className="md:hidden text-premium-pearl-50"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={toggleMenu}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -109,7 +134,9 @@ const Header = () => {
       </div>
     </header>
   );
-};
+});
+
+Header.displayName = 'Header';
 
 export default Header;
 
