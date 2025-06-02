@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
@@ -28,34 +27,44 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const addToCart = (product) => {
+    console.log('addToCart - Incoming product:', product);
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
       if (existingItem) {
+        console.log('addToCart - Existing item found:', existingItem);
         return prevItems.map(item =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prevItems, { ...product, quantity: 1 }];
+      console.log('addToCart - New item added:', { ...product, quantity: 1 });
+      return [...prevItems, {
+        ...product,
+        quantity: 1
+      }];
     });
   };
 
   const removeFromCart = (productId) => {
+    console.log('removeFromCart - Product ID:', productId);
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
   };
 
   const updateQuantity = (productId, newQuantity) => {
+    console.log('updateQuantity - Product ID:', productId, 'New Quantity:', newQuantity);
     if (newQuantity === 0) {
       removeFromCart(productId);
       return;
     }
     setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.id === productId
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
+      prevItems.map(item => {
+        if (item.id === productId) {
+          console.log('updateQuantity - Updating item:', item, 'with new quantity:', newQuantity);
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
+      })
     );
   };
 
@@ -68,7 +77,17 @@ export const CartProvider = ({ children }) => {
   };
 
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    console.log('Calculating total price for items:', cartItems);
+    const total = cartItems.reduce((total, item) => {
+      // Remove commas from price string and convert to number
+      const itemPrice = Number(String(item.price).replace(/,/g, '')) || 0;
+      const itemQuantity = Number(item.quantity) || 0;
+      const itemTotal = itemPrice * itemQuantity;
+      console.log(`Item ${item.name}: Price=${itemPrice}, Quantity=${itemQuantity}, Total=${itemTotal}`);
+      return total + itemTotal;
+    }, 0);
+    console.log('Final total:', total);
+    return total;
   };
 
   const value = {

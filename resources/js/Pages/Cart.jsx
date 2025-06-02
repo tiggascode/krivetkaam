@@ -3,9 +3,23 @@ import { Trash2, Plus, Minus, Phone } from 'lucide-react';
 import { useCart } from "@/contexts/CartContext.jsx";
 import Header from "@/Components/Header.jsx";
 
-
 const Cart = () => {
     const { cartItems, removeFromCart, updateQuantity, getTotalPrice } = useCart();
+
+    // Format price with commas
+    const formatPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    // Debug price values
+    console.log('Cart Items:', cartItems);
+    console.log('Total Price:', getTotalPrice());
+    console.log('Individual Item Prices:', cartItems.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        total: item.price * item.quantity
+    })));
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-premium-onyx-900 via-premium-sapphire-900 to-premium-onyx-800">
@@ -57,7 +71,7 @@ const Cart = () => {
                                             {/* Price and Quantity */}
                                             <div className="flex items-center justify-between">
                                                 <div className="text-premium-gold-400 font-bold">
-                                                    ${item.price}
+                                                    {item.price}֏
                                                 </div>
                                                 <div className="flex flex-col items-center gap-2">
                                                     <div className="flex items-center gap-2 bg-premium-onyx-900/50 px-3 py-1 rounded-full">
@@ -101,7 +115,7 @@ const Cart = () => {
                                 <div className="space-y-4 mb-6">
                                     <div className="flex justify-between text-premium-pearl-300">
                                         <span>Subtotal</span>
-                                        <span>${getTotalPrice()}</span>
+                                        <span>{formatPrice(getTotalPrice())}֏</span>
                                     </div>
                                     <div className="flex justify-between text-premium-pearl-300">
                                         <span>Shipping</span>
@@ -110,7 +124,7 @@ const Cart = () => {
                                     <div className="h-px bg-premium-gold-500/20 my-4"></div>
                                     <div className="flex justify-between text-premium-pearl-50 font-bold">
                                         <span>Total</span>
-                                        <span>${getTotalPrice()}</span>
+                                        <span>{formatPrice(getTotalPrice())}֏</span>
                                     </div>
                                 </div>
 
@@ -123,7 +137,6 @@ const Cart = () => {
                     </div>
                 )}
             </div>
-
         </div>
     );
 };
