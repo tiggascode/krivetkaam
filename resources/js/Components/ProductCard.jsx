@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
     const handleAddToCart = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (!cartItem) {
+        if (!cartItem && product.quantity > 0) {
             addToCart({ ...product, quantity: 1 });
             setShowQuantity(true);
         }
@@ -31,7 +31,7 @@ const ProductCard = ({ product }) => {
         if (newQuantity < 1) {
             removeFromCart(product.id);
             setShowQuantity(false);
-        } else {
+        } else if (newQuantity <= product.quantity) {
             updateQuantity(product.id, newQuantity);
         }
     };
@@ -87,13 +87,13 @@ const ProductCard = ({ product }) => {
                     <>
                         <button
                             onClick={(e) => handleImageNavigation(e, 'prev')}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-premium-onyx-900/80 text-premium-gold-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-premium-onyx-900"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-premium-onyx-900/80 text-premium-gold-400 sm:opacity-0 sm:group-hover:opacity-100 opacity-100 transition-opacity duration-300 hover:bg-premium-onyx-900"
                         >
                             <ChevronLeft className="w-6 h-6" />
                         </button>
                         <button
                             onClick={(e) => handleImageNavigation(e, 'next')}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-premium-onyx-900/80 text-premium-gold-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-premium-onyx-900"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-premium-onyx-900/80 text-premium-gold-400 sm:opacity-0 sm:group-hover:opacity-100 opacity-100 transition-opacity duration-300 hover:bg-premium-onyx-900"
                         >
                             <ChevronRight className="w-6 h-6" />
                         </button>
@@ -110,20 +110,6 @@ const ProductCard = ({ product }) => {
                         </div>
                     </>
                 )}
-
-                {/* Premium badges */}
-                <div className="absolute top-6 left-6 flex flex-col gap-3">
-                    {product.isNew && (
-                        <span className="px-4 py-2 bg-gradient-to-r from-premium-gold-500 to-premium-gold-600 text-premium-onyx-900 text-sm font-bold rounded-full shadow-lg">
-                            ✨ New Arrival
-                        </span>
-                    )}
-                    {product.discount > 0 && (
-                        <span className="px-4 py-2 bg-gradient-to-r from-premium-ruby-500 to-premium-ruby-600 text-premium-pearl-50 text-sm font-bold rounded-full shadow-lg">
-                            🔥 -{product.discount}% OFF
-                        </span>
-                    )}
-                </div>
 
                 {/* Premium add to cart section */}
                 <div className={`absolute bottom-6 right-6 ${cartItem ? 'opacity-100' : 'opacity-100 sm:opacity-0 sm:group-hover:opacity-100'} transform translate-y-0 sm:translate-y-4 sm:group-hover:translate-y-0 transition-all duration-300`}>
@@ -159,25 +145,14 @@ const ProductCard = ({ product }) => {
 
             {/* Premium content section */}
             <div className="p-8">
-                <div className="flex justify-between items-start mb-6">
-                    <h3 className="text-2xl font-playfair font-bold text-premium-pearl-50 group-hover:text-premium-gold-400 transition-colors duration-300">
+                <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-xl font-playfair font-bold text-premium-pearl-50 group-hover:text-premium-gold-400 transition-colors duration-300 flex-1">
                         {product.title}
                     </h3>
-                    <div className="flex flex-col items-end">
-                        {product.discount > 0 ? (
-                            <>
-                                <span className="text-2xl font-bold bg-gradient-to-r from-premium-gold-400 to-premium-gold-500 bg-clip-text text-transparent">
-                                    ${product.price}
-                                </span>
-                                <span className="text-premium-pearl-400 line-through text-lg">
-                                    ${(product.price * (1 + product.discount / 100))}
-                                </span>
-                            </>
-                        ) : (
-                            <span className="text-2xl font-bold bg-gradient-to-r from-premium-gold-400 to-premium-gold-500 bg-clip-text text-transparent">
-                                ${product.price}
-                            </span>
-                        )}
+                    <div className="flex items-center ml-4">
+                        <span className="text-xl font-bold bg-gradient-to-r from-premium-gold-400 to-premium-gold-500 bg-clip-text text-transparent whitespace-nowrap">
+                            {product.price}Դ
+                        </span>
                     </div>
                 </div>
 
@@ -188,7 +163,7 @@ const ProductCard = ({ product }) => {
                 {/* Premium details */}
                 <div className="flex justify-between items-center pt-4 border-t border-premium-gold-500/20">
                     <span className="text-premium-pearl-400 text-sm font-medium">
-                        {product.stock} in stock
+                        Quantity: {product.quantity - (cartItem?.quantity || 0)}
                     </span>
                 </div>
             </div>
