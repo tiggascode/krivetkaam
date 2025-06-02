@@ -29,7 +29,7 @@ class ProductResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title,
             'description' => $this->description,
-            'price'       => number_format($this->price, 2),
+            'price'       => number_format($this->price, 0),
             'quantity'    => $this->quantity,
             'images'      => $imageUrls,
             'image'       => !empty($imageUrls) ? $imageUrls[0] : null,

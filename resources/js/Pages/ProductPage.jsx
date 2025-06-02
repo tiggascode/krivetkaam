@@ -6,6 +6,7 @@ import Header from '../components/Header';
 const ProductPage = ({ product }) => {
     const { addToCart, cartItems, updateQuantity, removeFromCart } = useCart();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [availableQuantity, setAvailableQuantity] = useState(product.quantity);
 
     // Ensure we have valid image URLs and add storage path
     const images = product.images?.filter(img => img).map(img => `/storage/${img}`) || [];
@@ -29,18 +30,25 @@ const ProductPage = ({ product }) => {
 
     const handleQuantityChange = (newQuantity) => {
         if (newQuantity > 0) {
-            updateQuantity(product.id, newQuantity);
+            const quantityDifference = newQuantity - cartItem.quantity;
+            if (availableQuantity - quantityDifference >= 0) {
+                updateQuantity(product.id, newQuantity);
+                setAvailableQuantity(prev => prev - quantityDifference);
+            }
         }
     };
 
     const handleAddToCart = () => {
-        if (!cartItem) {
+        if (!cartItem && availableQuantity > 0) {
             addToCart({ ...product, quantity: 1 });
+            setAvailableQuantity(prev => prev - 1);
         }
     };
 
     const handleRemoveFromCart = () => {
+        const currentCartQuantity = cartItem.quantity;
         removeFromCart(product.id);
+        setAvailableQuantity(prev => prev + currentCartQuantity);
     };
 
     return (
@@ -162,7 +170,7 @@ const ProductPage = ({ product }) => {
                             </h1>
 
                             <div className="text-3xl font-bold bg-gradient-to-r from-premium-gold-400 to-premium-gold-500 bg-clip-text text-transparent mb-6">
-                                ${product.price}
+                                {product.price}֏
                             </div>
 
                             <p className="text-premium-pearl-300 mb-8 leading-relaxed">
@@ -174,13 +182,14 @@ const ProductPage = ({ product }) => {
                                 {!cartItem ? (
                                     <button
                                         onClick={handleAddToCart}
-                                        className="w-full px-8 py-4 bg-gradient-to-r from-premium-gold-500 to-premium-gold-600 hover:from-premium-gold-600 hover:to-premium-gold-700 text-premium-onyx-900 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-2xl ring-4 ring-premium-gold-500/20 hover:ring-premium-gold-500/40"
+                                        disabled={availableQuantity === 0}
+                                        className={`w-full px-8 py-4 bg-gradient-to-r from-premium-gold-500 to-premium-gold-600 hover:from-premium-gold-600 hover:to-premium-gold-700 text-premium-onyx-900 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-2xl ring-4 ring-premium-gold-500/20 hover:ring-premium-gold-500/40 ${availableQuantity === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     >
-                                        Add to Cart
+                                        {availableQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
                                     </button>
                                 ) : (
-                                    <div className="flex items-center justify-between bg-premium-gold-500/20 p-4 rounded-xl border border-premium-gold-500/30 backdrop-blur-md">
-                                        <div className="flex items-center gap-4">
+                                    <div className="flex flex-col gap-4 bg-premium-gold-500/20 p-4 rounded-xl border border-premium-gold-500/30 backdrop-blur-md">
+                                        <div className="flex items-center justify-between">
                                             <span className="text-premium-pearl-200 font-medium">Quantity:</span>
                                             <div className="flex items-center gap-2 bg-premium-onyx-900/70 px-4 py-2 rounded-full backdrop-blur-sm border border-premium-gold-500/30">
                                                 <button
@@ -202,7 +211,7 @@ const ProductPage = ({ product }) => {
                                         </div>
                                         <button
                                             onClick={handleRemoveFromCart}
-                                            className="flex items-center gap-2 px-4 py-2 bg-premium-ruby-700/80 hover:bg-premium-ruby-700/90 text-premium-ruby-100 font-semibold rounded-lg transition-all duration-300 border border-premium-ruby-500/30"
+                                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-premium-ruby-700/80 hover:bg-premium-ruby-700/90 text-premium-ruby-100 font-semibold rounded-lg transition-all duration-300 border border-premium-ruby-500/30"
                                         >
                                             <Trash2 className="w-4 h-4" />
                                             Remove
@@ -213,7 +222,7 @@ const ProductPage = ({ product }) => {
                                 {/* Stock Info */}
                                 <div className="bg-premium-onyx-900/50 p-4 rounded-xl border border-premium-gold-500/20 backdrop-blur-md">
                                     <p className="text-premium-pearl-300 text-sm">
-                                        {product.stock} items available
+                                        {availableQuantity} items remaining
                                     </p>
                                 </div>
                             </div>

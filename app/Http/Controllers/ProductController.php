@@ -11,8 +11,18 @@ class ProductController extends Controller
 {
     public function show($id)
     {
-        $product = Product::findOrFail($id);
-        
+        $value = Product::findOrFail($id);
+
+
+        $product = [
+            'id'          => $value->id,
+            'title'       => $value->title,
+            'description' => $value->description,
+            'price'       => number_format($value->price, 0),
+            'quantity'    => $value->quantity,
+            'images'      => $value->images,
+        ];
+
         return Inertia::render('ProductPage', [
             'product' =>$product
         ]);

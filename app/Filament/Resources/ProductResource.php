@@ -128,7 +128,7 @@ class ProductResource extends Resource
                     ->wrap()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('price')
-                    ->money('usd')
+                    ->money('amd')
                     ->sortable()
                     ->alignRight(),
                 Tables\Columns\TextColumn::make('quantity')
