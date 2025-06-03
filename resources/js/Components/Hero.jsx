@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import { smoothScrollTo } from '@/utils/scroll';
 
 const Hero = () => {
   const scrollToSection = (sectionId) => {
-    smoothScrollTo(sectionId, {
-      duration: 800,
-      offset: 80, // Account for header height
-      easing: 'easeInOutCubic'
-    });
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (

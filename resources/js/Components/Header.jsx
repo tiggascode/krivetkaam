@@ -2,18 +2,14 @@ import React, { useState, useCallback, useMemo, memo } from 'react';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from "@/contexts/CartContext.jsx";
 import { Link } from '@inertiajs/react';
-import { smoothScrollTo } from '@/utils/scroll';
 
 const Header = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { getTotalItems } = useCart();
 
   const scrollToSection = useCallback((sectionId) => {
-    smoothScrollTo(sectionId, {
-      duration: 800,
-      offset: 80, // Account for header height
-      easing: 'easeInOutCubic'
-    });
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   }, []);
 
