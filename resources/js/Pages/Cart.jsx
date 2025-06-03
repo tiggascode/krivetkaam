@@ -22,7 +22,7 @@ const Cart = () => {
     })));
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-premium-onyx-900 via-premium-sapphire-900 to-premium-onyx-800">
+        <div className="min-h-screen bg-[#123856]">
             <Header />
 
             <div className="container mx-auto px-4 py-12">

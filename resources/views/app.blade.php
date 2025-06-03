@@ -10,8 +10,12 @@
         <!-- Preload critical assets -->
         <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
         <link rel="preload" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" as="style">
-        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+        <noscript><link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet"></noscript>
 
+        <!-- Preload critical JS -->
+        <link rel="modulepreload" href="{{ asset('resources/js/app.jsx') }}">
+        
         <!-- Scripts -->
         @routes
         @viteReactRefresh
