@@ -2,59 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Premium Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Premium Typography */
-@layer base {
-    html {
-        font-family: 'Inter', system-ui, sans-serif;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @apply font-bold tracking-tight;
-    }
-}
-
 /* Premium Components */
 @layer components {
     .premium-card {
@@ -98,16 +45,20 @@
 }
 
 /* Premium Animations Classes */
-.animate-fade-in-up {
-    animation: fadeInUp 0.5s ease-out;
-}
-
 .animate-scale-in {
     animation: scaleIn 0.5s ease-out;
 }
 
-.animate-slide-in-right {
-    animation: slideInRight 0.5s ease-out;
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* Premium Hover Effects */

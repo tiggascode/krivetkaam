@@ -107,7 +107,7 @@ const Hero = () => {
 
       {/* Main content with enhanced 3D styling */}
       <div className="container mx-auto text-center relative z-10">
-        <div className="animate-fade-in">
+        <div>
           {/* Premium badge with 3D effect */}
           <div className="hidden md:inline-flex items-center px-8 py-3 bg-black/60 border-2 border-premium-gold-500/30 rounded-full mb-8 backdrop-blur-xl shadow-2xl shadow-premium-gold-500/20">
             <span className="text-premium-gold-400 text-sm font-medium tracking-wider uppercase">
