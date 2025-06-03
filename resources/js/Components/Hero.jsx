@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
+import { smoothScrollTo } from '@/utils/scroll';
 
 const Hero = () => {
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo(sectionId, {
+      duration: 800,
+      offset: 80, // Account for header height
+      easing: 'easeInOutCubic'
+    });
   };
 
   return (
@@ -84,21 +86,13 @@ const Hero = () => {
 
       {/* Secondary Lobster - Smaller, Different Position */}
       <div className="absolute bottom-32 left-16 z-5">
-        <div
-          className="relative transform-gpu"
-          style={{
-            animation: 'lobsterFloat2 10s ease-in-out infinite',
-            transformStyle: 'preserve-3d',
-            animationDelay: '3s'
-          }}
-        >
+        <div className="relative transform-gpu">
           {/* Smaller Lobster Shadow/Glow */}
           <div className="absolute inset-0 blur-xl opacity-20 bg-gradient-to-br from-premium-gold-300/30 to-premium-gold-500/15 rounded-full transform scale-125"></div>
 
           {/* Smaller Lobster */}
           <div className="relative text-5xl transform-gpu" style={{
-            filter: 'drop-shadow(0 15px 30px rgba(212, 175, 55, 0.25)) drop-shadow(0 0 40px rgba(255, 69, 0, 0.15))',
-            animation: 'lobsterSway2 8s ease-in-out infinite alternate-reverse'
+            filter: 'drop-shadow(0 15px 30px rgba(212, 175, 55, 0.25)) drop-shadow(0 0 40px rgba(255, 69, 0, 0.15))'
           }}>
             🦐
           </div>
@@ -112,20 +106,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
-      {/* Floating Bubbles for Underwater Effect */}
-      <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-premium-gold-400/40 rounded-full animate-pulse" style={{
-        animation: 'bubbleFloat 12s linear infinite',
-        animationDelay: '0s'
-      }}></div>
-      <div className="absolute top-1/2 right-1/4 w-3 h-3 bg-premium-gold-300/30 rounded-full animate-pulse" style={{
-        animation: 'bubbleFloat 15s linear infinite',
-        animationDelay: '4s'
-      }}></div>
-      <div className="absolute bottom-1/3 left-1/5 w-2 h-2 bg-premium-gold-500/50 rounded-full animate-pulse" style={{
-        animation: 'bubbleFloat 10s linear infinite',
-        animationDelay: '8s'
-      }}></div>
 
       {/* Main content with enhanced 3D styling */}
       <div className="container mx-auto text-center relative z-10">
@@ -173,15 +153,13 @@ const Hero = () => {
       </div>
 
       {/* Enhanced 3D floating elements */}
-      <div className="absolute top-32 left-16 text-6xl opacity-15 animate-float transform rotate-12" style={{
+      <div className="absolute top-32 left-16 text-6xl opacity-15 transform rotate-12" style={{
         filter: 'drop-shadow(0 10px 20px rgba(212, 175, 55, 0.2))'
       }}>🐟</div>
-      <div className="absolute top-48 right-20 text-4xl opacity-20 animate-float transform -rotate-6" style={{
-        animationDelay: '1s',
+      <div className="absolute top-48 right-20 text-4xl opacity-20 transform -rotate-6" style={{
         filter: 'drop-shadow(0 8px 16px rgba(212, 175, 55, 0.15))'
       }}>🦐</div>
-      <div className="absolute bottom-32 left-24 text-5xl opacity-15 animate-float transform rotate-45" style={{
-        animationDelay: '2s',
+      <div className="absolute bottom-32 left-24 text-5xl opacity-15 transform rotate-45" style={{
         filter: 'drop-shadow(0 12px 24px rgba(212, 175, 55, 0.1))'
       }}>🦀</div>
 
@@ -208,50 +186,12 @@ const Hero = () => {
           }
         }
 
-        @keyframes lobsterFloat2 {
-          0%, 100% {
-            transform: translateY(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-          }
-          33% {
-            transform: translateY(-10px) rotateX(-5deg) rotateY(8deg) rotateZ(-2deg) scale(1.05);
-          }
-          66% {
-            transform: translateY(-18px) rotateX(3deg) rotateY(-6deg) rotateZ(1deg) scale(0.98);
-          }
-        }
-
         @keyframes lobsterSway {
           0% {
             transform: rotateZ(-3deg) rotateY(0deg);
           }
           100% {
             transform: rotateZ(3deg) rotateY(10deg);
-          }
-        }
-
-        @keyframes lobsterSway2 {
-          0% {
-            transform: rotateZ(2deg) rotateY(-5deg);
-          }
-          100% {
-            transform: rotateZ(-2deg) rotateY(5deg);
-          }
-        }
-
-        @keyframes bubbleFloat {
-          0% {
-            transform: translateY(100vh) scale(0);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(-20vh) scale(1);
-            opacity: 0;
           }
         }
       `}</style>
