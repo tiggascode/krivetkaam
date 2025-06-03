@@ -53,16 +53,21 @@ const Cart = () => {
                                         {/* Product Image */}
                                         <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
                                             <img
-                                                src={item.image}
-                                                alt={item.name}
+                                                src={item.images?.[0] || '/images/placeholder.jpg'}
+                                                alt={item.title || 'Product image'}
                                                 className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    console.error('Image failed to load:', item.images?.[0]);
+                                                    e.target.onerror = null;
+                                                    e.target.src = '/images/placeholder.jpg';
+                                                }}
                                             />
                                         </div>
 
                                         {/* Product Info */}
                                         <div className="flex-grow">
                                             <h3 className="text-xl font-playfair font-bold text-premium-pearl-50 mb-2">
-                                                {item.name}
+                                                {item.title}
                                             </h3>
                                             <p className="text-premium-pearl-300 text-sm mb-4 line-clamp-2">
                                                 {item.description}

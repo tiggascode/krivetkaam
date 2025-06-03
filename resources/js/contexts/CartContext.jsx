@@ -28,19 +28,33 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     console.log('addToCart - Incoming product:', product);
+    // Ensure consistent image paths
+    const processedProduct = {
+      ...product,
+      images: product.images?.map(img => {
+        if (!img) return null;
+        // If it's already a full URL, return as is
+        if (img.startsWith('http')) return img;
+        // If it already has /storage/ prefix, return as is
+        if (img.startsWith('/storage/')) return img;
+        // Otherwise, add /storage/ prefix
+        return `/storage/${img}`;
+      }).filter(Boolean) // Remove any null values
+    };
+
     setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
+      const existingItem = prevItems.find(item => item.id === processedProduct.id);
       if (existingItem) {
         console.log('addToCart - Existing item found:', existingItem);
         return prevItems.map(item =>
-          item.id === product.id
+          item.id === processedProduct.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      console.log('addToCart - New item added:', { ...product, quantity: 1 });
+      console.log('addToCart - New item added:', { ...processedProduct, quantity: 1 });
       return [...prevItems, {
-        ...product,
+        ...processedProduct,
         quantity: 1
       }];
     });
