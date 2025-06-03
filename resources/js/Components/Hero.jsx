@@ -63,7 +63,7 @@ const Hero = () => {
             filter: 'drop-shadow(0 20px 40px rgba(212, 175, 55, 0.3)) drop-shadow(0 0 60px rgba(255, 69, 0, 0.2))',
             animation: 'lobsterSway 6s ease-in-out infinite alternate'
           }}>
-            🦞
+            🦐
           </div>
 
           {/* 3D Depth Layers */}
@@ -71,13 +71,13 @@ const Hero = () => {
             filter: 'blur(1px)',
             color: '#8B4513'
           }}>
-            🦞
+            🦐
           </div>
           <div className="absolute inset-0 text-8xl opacity-10 transform translate-x-4 translate-y-4 scale-90" style={{
             filter: 'blur(2px)',
             color: '#654321'
           }}>
-            🦞
+            🦐
           </div>
         </div>
       </div>
@@ -100,7 +100,7 @@ const Hero = () => {
             filter: 'drop-shadow(0 15px 30px rgba(212, 175, 55, 0.25)) drop-shadow(0 0 40px rgba(255, 69, 0, 0.15))',
             animation: 'lobsterSway2 8s ease-in-out infinite alternate-reverse'
           }}>
-            🦞
+            🦐
           </div>
 
           {/* 3D Depth for smaller lobster */}
@@ -108,7 +108,7 @@ const Hero = () => {
             filter: 'blur(0.5px)',
             color: '#8B4513'
           }}>
-            🦞
+            🦐
           </div>
         </div>
       </div>
