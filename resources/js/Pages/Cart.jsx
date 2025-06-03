@@ -135,7 +135,7 @@ const Cart = () => {
 
                                 <div className="flex items-center justify-center space-x-2 bg-premium-gold-500/20 text-premium-gold-400 py-4 rounded-lg font-semibold">
                                     <Phone className="w-5 h-5" />
-                                    <span>+374 94616939</span>
+                                    <a href="tel:+37494616939" className="hover:text-premium-gold-300 transition-colors">+374 94616939</a>
                                 </div>
                             </div>
                         </div>

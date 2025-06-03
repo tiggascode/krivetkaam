@@ -201,7 +201,7 @@ export default function Dashboard() {
                                         <div className="w-12 h-12 bg-gradient-to-br from-premium-gold-500 to-premium-gold-600 rounded-full flex items-center justify-center">
                                             <span className="text-premium-onyx-900 font-bold">📞</span>
                                         </div>
-                                        <span className="text-premium-pearl-200 text-lg">+374 94616939</span>
+                                        <a href="tel:+37494616939" className="text-premium-pearl-200 text-lg hover:text-premium-gold-400 transition-colors">+374 94616939</a>
                                     </div>
                                 </div>
                             </div>
