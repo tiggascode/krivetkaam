@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { withMemo } from '@/utils/componentOptimizer';
 import ProductCard from "@/Components/ProductCard.jsx";
 
 const ProductGrid = ({ products }) => {
+    // Memoize the product cards to prevent unnecessary re-renders
+    const productCards = useMemo(() => {
+        return products.map((product, index) => (
+            <ProductCard
+                key={product.id}
+                product={product}
+                index={index}
+            />
+        ));
+    }, [products]);
 
     return (
         <section className="py-8 sm:py-12 px-1 sm:px-4">
@@ -13,17 +24,11 @@ const ProductGrid = ({ products }) => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-                    {products.map((product, index) => (
-                        <ProductCard
-                            key={product.id}
-                            product={product}
-                            index={index}
-                        />
-                    ))}
+                    {productCards}
                 </div>
             </div>
         </section>
     );
 };
 
-export default ProductGrid;
+export default withMemo(ProductGrid);

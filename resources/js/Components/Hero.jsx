@@ -5,7 +5,12 @@ const Hero = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const offset = element.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth',
+        duration: 500 // Faster duration
+      });
     }
   };
 
@@ -34,9 +39,9 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1a4a6f]/20 to-[#0d2a42]"></div>
 
         {/* Apple-style floating orbs with 3D depth */}
-        <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-br from-[#1a4a6f]/10 to-[#0d2a42]/5 rounded-full blur-3xl animate-float opacity-60"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-tl from-[#1a4a6f]/8 to-transparent rounded-full blur-2xl animate-float opacity-40" style={{ animationDelay: '3s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#1a4a6f]/5 via-[#153c5c]/10 to-[#1a4a6f]/5 rounded-full blur-3xl animate-float opacity-30" style={{ animationDelay: '6s' }}></div>
+        <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-br from-[#1a4a6f]/10 to-[#0d2a42]/5 rounded-full blur-3xl opacity-60"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-tl from-[#1a4a6f]/8 to-transparent rounded-full blur-2xl opacity-40"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#1a4a6f]/5 via-[#153c5c]/10 to-[#1a4a6f]/5 rounded-full blur-3xl opacity-30"></div>
 
         {/* Premium light beams */}
         <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-[#1a4a6f]/20 via-[#153c5c]/5 to-transparent"></div>
@@ -105,6 +110,11 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* Floating Bubbles for Underwater Effect */}
+      <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-premium-gold-400/40 rounded-full"></div>
+      <div className="absolute top-1/2 right-1/4 w-3 h-3 bg-premium-gold-300/30 rounded-full"></div>
+      <div className="absolute bottom-1/3 left-1/5 w-2 h-2 bg-premium-gold-500/50 rounded-full"></div>
+
       {/* Main content with enhanced 3D styling */}
       <div className="container mx-auto text-center relative z-10">
         <div>
@@ -162,10 +172,10 @@ const Hero = () => {
       }}>🦀</div>
 
       {/* Premium 3D sparkle effects */}
-      <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-premium-gold-400 rounded-full opacity-80 animate-pulse shadow-lg shadow-premium-gold-400/50"></div>
-      <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-premium-gold-300 rounded-full opacity-90 animate-pulse shadow-md shadow-premium-gold-300/50" style={{ animationDelay: '0.5s' }}></div>
-      <div className="absolute bottom-1/4 right-1/4 w-3 h-3 bg-premium-gold-500 rounded-full opacity-70 animate-pulse shadow-lg shadow-premium-gold-500/40" style={{ animationDelay: '1.5s' }}></div>
-      <div className="absolute top-2/3 left-1/5 w-1 h-1 bg-premium-gold-200 rounded-full opacity-100 animate-pulse shadow-sm shadow-premium-gold-200/60" style={{ animationDelay: '2.5s' }}></div>
+      <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-premium-gold-400 rounded-full opacity-80 shadow-lg shadow-premium-gold-400/50"></div>
+      <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-premium-gold-300 rounded-full opacity-90 shadow-md shadow-premium-gold-300/50"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-3 h-3 bg-premium-gold-500 rounded-full opacity-70 shadow-lg shadow-premium-gold-500/40"></div>
+      <div className="absolute top-2/3 left-1/5 w-1 h-1 bg-premium-gold-200 rounded-full opacity-100 shadow-sm shadow-premium-gold-200/60"></div>
 
       {/* Custom CSS for Lobster Animations */}
       <style jsx>{`

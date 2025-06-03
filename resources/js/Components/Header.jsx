@@ -9,8 +9,15 @@ const Header = memo(() => {
 
   const scrollToSection = useCallback((sectionId) => {
     const section = document.getElementById(sectionId);
-    section?.scrollIntoView({ behavior: 'smooth' });
-    setIsMenuOpen(false);
+    if (section) {
+      const offset = section.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth',
+        duration: 500 // Faster duration
+      });
+      setIsMenuOpen(false);
+    }
   }, []);
 
   const toggleMenu = useCallback(() => {

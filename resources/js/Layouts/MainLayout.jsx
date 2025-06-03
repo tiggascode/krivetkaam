@@ -1,16 +1,22 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import { withMemo, DeferredRender } from '@/utils/componentOptimizer.jsx';
-import { optimizeLayoutStyles, optimizeTextStyles } from '@/utils/styleOptimizer.jsx';
+import { optimizeLayoutStyles, optimizeTextStyles, addScrollOptimizationClasses } from '@/utils/styleOptimizer.jsx';
 import { Link } from '@inertiajs/react';
 import { useCart } from '@/contexts/CartContext.jsx';
+import { ShoppingCart } from 'lucide-react';
 
 const MainLayout = ({ children }) => {
     const headerRef = useRef(null);
     const navRef = useRef(null);
     const cartCountRef = useRef(null);
+    const mainRef = useRef(null);
     const { cartItems } = useCart();
 
-    useEffect(() => {
+    const applyOptimizations = useCallback(() => {
+        // Apply global scroll optimizations only once
+        addScrollOptimizationClasses();
+
+        // Apply component-specific optimizations
         if (headerRef.current) {
             optimizeLayoutStyles(headerRef.current);
         }
@@ -20,12 +26,19 @@ const MainLayout = ({ children }) => {
         if (cartCountRef.current) {
             optimizeTextStyles(cartCountRef.current);
         }
+        if (mainRef.current) {
+            optimizeLayoutStyles(mainRef.current);
+        }
     }, []);
+
+    useEffect(() => {
+        applyOptimizations();
+    }, [applyOptimizations]);
 
     const cartItemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 optimized-scroll">
             <header
                 ref={headerRef}
                 className="optimized-layout bg-white shadow-sm sticky top-0 z-50"
@@ -49,30 +62,15 @@ const MainLayout = ({ children }) => {
                             >
                                 Products
                             </Link>
-
                             <Link
                                 href="/cart"
-                                className="relative"
+                                className="relative text-gray-600 hover:text-premium-gold-500 transition-colors duration-300"
                             >
-                                <span className="sr-only">Cart</span>
-                                <svg
-                                    className="w-6 h-6 text-gray-600 hover:text-premium-gold-500 transition-colors duration-300"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                                    />
-                                </svg>
-
+                                <ShoppingCart className="w-6 h-6" />
                                 {cartItemsCount > 0 && (
                                     <span
                                         ref={cartCountRef}
-                                        className="optimized-text absolute -top-2 -right-2 bg-premium-gold-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                                        className="absolute -top-2 -right-2 bg-premium-gold-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
                                     >
                                         {cartItemsCount}
                                     </span>
@@ -83,8 +81,8 @@ const MainLayout = ({ children }) => {
                 </nav>
             </header>
 
-            <main className="container mx-auto px-4 py-8">
-                <DeferredRender timeout={100}>
+            <main ref={mainRef} className="container mx-auto px-4 py-8">
+                <DeferredRender priority="high">
                     {children}
                 </DeferredRender>
             </main>

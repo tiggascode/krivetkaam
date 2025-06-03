@@ -33,9 +33,9 @@ export default function Dashboard() {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/15 to-black/40"></div>
 
                 {/* Apple-style floating orbs with 3D depth */}
-                <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-br from-premium-gold-500/10 to-premium-gold-600/5 rounded-full blur-3xl animate-float opacity-60"></div>
-                <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-tl from-premium-gold-400/8 to-transparent rounded-full blur-2xl animate-float opacity-40" style={{ animationDelay: '3s' }}></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-premium-gold-500/5 via-premium-gold-400/10 to-premium-gold-500/5 rounded-full blur-3xl animate-float opacity-30" style={{ animationDelay: '6s' }}></div>
+                <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-to-br from-premium-gold-500/10 to-premium-gold-600/5 rounded-full blur-3xl opacity-60"></div>
+                <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-tl from-premium-gold-400/8 to-transparent rounded-full blur-2xl opacity-40"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-premium-gold-500/5 via-premium-gold-400/10 to-premium-gold-500/5 rounded-full blur-3xl opacity-30"></div>
 
                 {/* Premium light beams */}
                 <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-premium-gold-400/20 via-premium-gold-500/5 to-transparent"></div>
