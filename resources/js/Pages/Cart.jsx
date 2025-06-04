@@ -23,7 +23,7 @@ const Cart = () => {
 
     return (
         <div className="min-h-screen bg-[#123856]">
-            <Header />
+            <Header showNavigation={false} />
 
             <div className="container mx-auto px-4 py-12">
                 <h1 className="text-4xl font-playfair font-bold text-premium-pearl-50 mb-8 text-center">

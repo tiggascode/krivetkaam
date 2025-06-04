@@ -3,7 +3,7 @@ import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from "@/contexts/CartContext.jsx";
 import { Link } from '@inertiajs/react';
 
-const Header = memo(() => {
+const Header = memo(({ showNavigation = true }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { getTotalItems } = useCart();
 
@@ -41,38 +41,42 @@ const Header = memo(() => {
           </div>
 
           {/* Navigation (Desktop) */}
-          <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
-            <div className="flex space-x-8">
-              <button
-                onClick={() => scrollToSection('products')}
-                className="text-premium-pearl-200 hover:text-premium-gold-400 transition-colors"
-              >
-                Products
-              </button>
-              <button
-                onClick={() => scrollToSection('about')}
-                className="text-premium-pearl-200 hover:text-premium-gold-400 transition-colors"
-              >
-                About
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="text-premium-pearl-200 hover:text-premium-gold-400 transition-colors"
-              >
-                Contact
-              </button>
-            </div>
-          </nav>
+          {showNavigation && (
+            <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
+              <div className="flex space-x-8">
+                <button
+                  onClick={() => scrollToSection('products')}
+                  className="text-premium-pearl-200 hover:text-premium-gold-400 transition-colors"
+                >
+                  Products
+                </button>
+                <button
+                  onClick={() => scrollToSection('about')}
+                  className="text-premium-pearl-200 hover:text-premium-gold-400 transition-colors"
+                >
+                  About
+                </button>
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="text-premium-pearl-200 hover:text-premium-gold-400 transition-colors"
+                >
+                  Contact
+                </button>
+              </div>
+            </nav>
+          )}
 
           {/* Mobile Menu Button and Cart */}
           <div className="flex items-center space-x-4">
             {/* Mobile menu button */}
-            <button
-              className="md:hidden text-premium-pearl-50"
-              onClick={toggleMenu}
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            {showNavigation && (
+              <button
+                className="md:hidden text-premium-pearl-50"
+                onClick={toggleMenu}
+              >
+                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            )}
 
             {/* Cart */}
             <div>
@@ -92,7 +96,7 @@ const Header = memo(() => {
         </div>
 
         {/* Mobile menu */}
-        {isMenuOpen && (
+        {showNavigation && isMenuOpen && (
           <div className="md:hidden mt-4 py-4 border-t border-premium-gold-500/20">
             <nav className="flex flex-col space-y-4">
               <button

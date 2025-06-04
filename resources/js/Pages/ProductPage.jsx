@@ -88,7 +88,7 @@ const ProductPage = ({ product }) => {
                 <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] mix-blend-overlay"></div>
             </div>
 
-            <Header />
+            <Header showNavigation={false} />
 
             <div className="container mx-auto px-4 py-12 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
